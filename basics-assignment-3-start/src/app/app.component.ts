@@ -7,8 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   dates = [];
+  showText=false;
 
   onAddDate() {
+    this.showText=!this.showText;
     this.dates.push(new Date(Date.now()).toTimeString());
   }
 
