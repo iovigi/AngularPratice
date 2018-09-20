@@ -1,0 +1,1 @@
+This is assignments and course projects for course https://www.udemy.com/the-complete-guide-to-angular-2
