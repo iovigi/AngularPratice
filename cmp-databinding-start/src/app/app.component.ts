@@ -23,4 +23,12 @@ export class AppComponent {
       content: blueprintData.serverContent
     });
   }
+
+  onEditElement() {
+    this.serverElements[0].name = "soemthing new";
+  }
+
+  onDeleteElement() {
+    this.serverElements.splice(0, 1);
+  }
 }
