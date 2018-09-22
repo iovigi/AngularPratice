@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit } from "@angular/core"
+import { Directive, ElementRef, OnInit, Input } from "@angular/core"
 
 @Directive({
     selector: '[appBasicHighlight]'

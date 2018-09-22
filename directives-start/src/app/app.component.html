@@ -9,7 +9,7 @@
           <li class="list-group-item" [ngClass]="{odd: number % 2 !== 0}" *ngFor="let number of oddNumbers"> {{number}}
           </li>
         </div>
-        <div *ngIf="!onlyOdd">
+        <div *appUnless="onlyOdd">
           <li class="list-group-item" [ngClass]="{even: number % 2 === 0}" *ngFor="let number of evenNumbers"> {{number}}
           </li>
         </div>
@@ -22,9 +22,15 @@
         This is test of directive
       </p>
 
-      <p appBetterHighlight>
+      <p appBetterHighlight="pink" defaultColor="blue">
           This is test of directive 2
         </p>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">Value is 5</p>
+        <p *ngSwitchCase="15">Value is 15</p>
+        <p *ngSwitchCase="25">Value is 25</p>
+        <p *ngSwitchDefault>Value is default</p>
+      </div>
     </div>
   </div>
 </div>
