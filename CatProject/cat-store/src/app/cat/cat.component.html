@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-5">
-    <app-cat-list (selectedCat)="selectedCat=$event"></app-cat-list>
+    <app-cat-list></app-cat-list>
   </div>
   <div class="col-md-5">
     <app-cat-detail *ngIf="selectedCat; else infoText" [selectedCat]="selectedCat"></app-cat-detail>

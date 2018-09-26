@@ -16,7 +16,7 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a href="#">To shopping list</a>
+          <a href="#" (click)="toShoppingList()">To shopping list</a>
         </li>
         <li>
           <a href="#">Edit cat</a>
@@ -35,6 +35,10 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    Behaviors
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let behavior of selectedCat.behaviors">
+        {{behavior.name}} - {{behavior.amount}}
+      </li>
+    </ul>
   </div>
 </div>

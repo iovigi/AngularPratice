@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter,Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Behavior } from "../../shared/behavior.model"
+import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list-edit',
@@ -13,15 +14,12 @@ export class ShoppingListEditComponent implements OnInit {
   @ViewChild("amountInput")
   amountInputRef: ElementRef;
 
-  @Output()
-  added = new EventEmitter<Behavior>();
-
-  constructor() { }
+  constructor(private shoppingListService:ShoppingListService) { }
 
   ngOnInit() {
   }
 
   onAddBehavior() {
-    this.added.emit(new Behavior(this.nameInputRef.nativeElement.value, this.amountInputRef.nativeElement.value));
+    this.shoppingListService.add(new Behavior(this.nameInputRef.nativeElement.value, this.amountInputRef.nativeElement.value));
   }
 }

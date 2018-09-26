@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Cat } from "../cat.model";
+import { CatService } from "../cat.service";
 
 @Component({
   selector: 'app-cat-detail',
@@ -8,11 +9,14 @@ import { Cat } from "../cat.model";
 })
 export class CatDetailComponent implements OnInit {
   @Input()
-  selectedCat:Cat;
+  selectedCat: Cat;
 
-    constructor() { }
+  constructor(private catService: CatService) { }
 
   ngOnInit() {
   }
 
+  toShoppingList() {
+    this.catService.addBehaviorsToShoppingList(this.selectedCat.behaviors);
+  }
 }
