@@ -3,9 +3,6 @@
     <app-cat-list></app-cat-list>
   </div>
   <div class="col-md-5">
-    <app-cat-detail *ngIf="selectedCat; else infoText" [selectedCat]="selectedCat"></app-cat-detail>
-    <ng-template #infoText>
-      <p class="lead">Please select cat</p>
-    </ng-template>
+    <router-outlet></router-outlet>
   </div>
 </div>

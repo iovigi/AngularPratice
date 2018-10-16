@@ -16,13 +16,13 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a href="#" (click)="toShoppingList()">To shopping list</a>
+          <a (click)="toShoppingList()" style="cursor:pointer">To shopping list</a>
         </li>
         <li>
-          <a href="#">Edit cat</a>
+          <a  style="cursor:pointer" [routerLink]="['edit']">Edit cat</a>
         </li>
         <li>
-          <a href="#">Delete cat</a>
+          <a  style="cursor:pointer">Delete cat</a>
         </li>
       </ul>
     </div>

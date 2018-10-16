@@ -2,8 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-        <app-cat *ngIf="selectedFeature === 'cats'"></app-cat>
-        <app-shopping-list *ngIf="selectedFeature === 'shoppingList'"></app-shopping-list>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

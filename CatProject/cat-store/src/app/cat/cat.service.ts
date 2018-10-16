@@ -23,6 +23,10 @@ export class CatService {
         this.catSelected.emit(cat);
     }
 
+    getCat(idx: number) {
+        return this.cats[idx];
+    }
+
     addBehaviorsToShoppingList(behaviors: Behavior[]) {
         for (let i: number = 0; i < behaviors.length; i++) {
             let behavior = behaviors[i];

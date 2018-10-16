@@ -7,7 +7,8 @@ import { Cat } from '../../cat.model';
   styleUrls: ['./cat-item.component.css']
 })
 export class CatItemComponent implements OnInit {
-
+  @Input()
+  index:number;
   @Input()
   cat:Cat;
 

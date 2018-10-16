@@ -12,6 +12,11 @@ import { ShoppingListEditComponent } from './shopping-list/shopping-list-edit/sh
 import { HeaderComponent } from './header/header.component';
 import { DropdowDicrective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { AppRoutingModule } from './app-routing.module';
+import { CatStartComponent } from './cat/cat-start/cat-start.component';
+import { CatEditComponent } from './cat/cat-edit/cat-edit.component';
+
+
 
 
 @NgModule({
@@ -24,11 +29,14 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     ShoppingListComponent,
     ShoppingListEditComponent,
     HeaderComponent,
-    DropdowDicrective
+    DropdowDicrective,
+    CatStartComponent,
+    CatEditComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule 
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]

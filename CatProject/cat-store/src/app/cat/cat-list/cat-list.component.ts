@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cat } from '../cat.model';
 import { CatService } from '../cat.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cat-list',
@@ -10,14 +11,14 @@ import { CatService } from '../cat.service';
 export class CatListComponent implements OnInit {
   cats: Cat[] = [];
 
-  constructor(private catService:CatService) {
-   }
+  constructor(private catService: CatService, private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.cats = this.catService.getCats();
   }
 
-  onSelectCat(cat: Cat) {
-    this.catService.selectCat(cat);
+  onNew() {
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 }

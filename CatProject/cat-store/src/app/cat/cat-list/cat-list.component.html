@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-success">New Cat</button>
+    <button class="btn btn-success" (click)="onNew()">New Cat</button>
   </div>
 </div>
 <hr/>
 <div class="row">
   <div class="col-xs-12">
-    <app-cat-item *ngFor="let cat of cats" [cat]="cat" (click)="onSelectCat(cat)"></app-cat-item>
+    <app-cat-item *ngFor="let cat of cats; index as i" [cat]="cat" [index]="i"></app-cat-item>
   </div>
 </div>
