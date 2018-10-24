@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 
 import { Behavior } from '../shared/behavior.model';
+import { Subject } from 'rxjs';
 
 export class ShoppingListService {
     private behaviors: Behavior[] = [
@@ -8,11 +9,11 @@ export class ShoppingListService {
         new Behavior("nice", 5)
     ];
 
-    added:EventEmitter<Behavior> = new EventEmitter<Behavior>();
+    added:Subject<Behavior> = new Subject<Behavior>();
 
     add(behavior: Behavior) {
         this.behaviors.push(behavior);
-        this.added.emit(behavior);
+        this.added.next(behavior);
     }
 
     getBehaviors() {

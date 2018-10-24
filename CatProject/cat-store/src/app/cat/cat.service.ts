@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Cat } from './cat.model';
@@ -11,16 +11,10 @@ export class CatService {
         new Cat("test", "test", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDuN7f1YONvVzPSSmTp7nNBQGQglSjR6L4Hz37EC8yZIMk_HVhVQ", [new Behavior("nasty", 1)])
     ];
 
-    catSelected: EventEmitter<Cat> = new EventEmitter<Cat>();
-
     constructor(private shoppingListService: ShoppingListService) { }
 
     getCats() {
         return this.cats.slice();
-    }
-
-    selectCat(cat: Cat) {
-        this.catSelected.emit(cat);
     }
 
     getCat(idx: number) {
