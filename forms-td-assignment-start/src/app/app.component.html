@@ -30,6 +30,9 @@
           <input type="password" id="password" name="password" ngModel class="form-control" required #password="ngModel" />
           <span class="help-block" *ngIf="!password.valid && password.touched">Please enter password</span>
         </div>
+        <div *ngIf="!f.valid && f.touched">
+          <p>Form is invalid</p>
+        </div>
         <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
       </form>
     </div>
