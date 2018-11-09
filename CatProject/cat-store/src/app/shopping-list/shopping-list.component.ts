@@ -14,14 +14,19 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   behaviors: Behavior[] = [];
   private subscription: Subscription;
 
+
   constructor(private shoppingListService: ShoppingListService) { }
 
   ngOnInit() {
     this.behaviors = this.shoppingListService.getBehaviors();
-    this.subscription = this.shoppingListService.added.subscribe(behavior => this.behaviors = this.shoppingListService.getBehaviors());
+    this.subscription = this.shoppingListService.updateList.subscribe(behaviors => this.behaviors =behaviors);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onEditItem(i: number) {
+    this.shoppingListService.startedEditting.next(i);
   }
 }
