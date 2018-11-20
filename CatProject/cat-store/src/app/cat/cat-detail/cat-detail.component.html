@@ -22,7 +22,7 @@
           <a  style="cursor:pointer" [routerLink]="['edit']">Edit cat</a>
         </li>
         <li>
-          <a  style="cursor:pointer">Delete cat</a>
+          <a (click)="deleteCat()" style="cursor:pointer">Delete cat</a>
         </li>
       </ul>
     </div>

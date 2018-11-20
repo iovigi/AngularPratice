@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { CatStartComponent } from './cat/cat-start/cat-start.component';
 import { CatEditComponent } from './cat/cat-edit/cat-edit.component';
+import { CatService } from './cat/cat.service'
 
 
 
@@ -36,9 +37,11 @@ import { CatEditComponent } from './cat/cat-edit/cat-edit.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService,
+    CatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
