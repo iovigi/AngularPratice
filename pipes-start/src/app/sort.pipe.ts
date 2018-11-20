@@ -4,11 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'sort'
 })
 export class SortPipe implements PipeTransform {
-  transform(value: any, args?: any): any {
+  transform(value: any, propertyName:string): any {
     return value.sort((x, y) => {
-      if (x.name < y.name)
+      if (x[propertyName] < y[propertyName])
         return -1;
-      if (x.name > y.name)
+      if (x[propertyName] > y[propertyName])
         return 1;
       return 0;
     });
