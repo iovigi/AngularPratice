@@ -4,13 +4,15 @@ import { Behavior } from '../shared/behavior.model';
 import { Subject } from 'rxjs';
 
 export class ShoppingListService {
-    private behaviors: Behavior[] = [
-        new Behavior("nasty", 1),
-        new Behavior("nice", 5)
-    ];
+    private behaviors: Behavior[]=[];
 
     startedEditting = new Subject<number>();
     updateList: Subject<Behavior[]> = new Subject<Behavior[]>();
+
+    init(behaviors: Behavior[]) {
+        this.behaviors = behaviors;
+        this.updateList.next(this.behaviors.slice());
+    }
 
     add(behavior: Behavior) {
         this.behaviors.push(behavior);

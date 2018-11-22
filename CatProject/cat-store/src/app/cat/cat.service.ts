@@ -9,12 +9,14 @@ import { Subject } from 'rxjs';
 export class CatService {
     catsChanged: Subject<Cat[]> = new Subject<Cat[]>();
 
-    private cats: Cat[] = [
-        new Cat("test", "test", "https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg", [new Behavior("touching heart", 2)]),
-        new Cat("test", "test", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDuN7f1YONvVzPSSmTp7nNBQGQglSjR6L4Hz37EC8yZIMk_HVhVQ", [new Behavior("nasty", 1)])
-    ];
+    private cats: Cat[] = [];
 
     constructor(private shoppingListService: ShoppingListService) { }
+
+    init(cats: Cat[]) {
+        this.cats = cats;
+        this.catsChanged.next(this.cats.slice());
+    }
 
     getCats() {
         return this.cats.slice();

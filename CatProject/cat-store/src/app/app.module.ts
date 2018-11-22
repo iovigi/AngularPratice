@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { CatListComponent } from './cat/cat-list/cat-list.component';
@@ -16,9 +17,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { CatStartComponent } from './cat/cat-start/cat-start.component';
 import { CatEditComponent } from './cat/cat-edit/cat-edit.component';
 import { CatService } from './cat/cat.service'
-
-
-
+import { FetchDataService } from './shared/fetch-data.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -32,16 +33,21 @@ import { CatService } from './cat/cat.service'
     HeaderComponent,
     DropdowDicrective,
     CatStartComponent,
-    CatEditComponent
+    CatEditComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
-  providers: [ShoppingListService,
-    CatService],
+  providers: [
+    ShoppingListService,
+    CatService,
+    FetchDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
