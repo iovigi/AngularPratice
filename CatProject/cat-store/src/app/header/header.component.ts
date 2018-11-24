@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FetchDataService } from '../shared/fetch-data.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +8,24 @@ import { FetchDataService } from '../shared/fetch-data.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private fetchDataService: FetchDataService) { }
+  constructor(private fetchDataService: FetchDataService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.fetchDataService.FetchData();
+  }
+
+  onLogout(){
+    this.authService.logout();
   }
 
   onSave() {
     this.fetchDataService.SaveData();
   }
 
-  onFetch(){
+  onFetch() {
     this.fetchDataService.FetchData();
+  }
+
+  isAuth() {
+    return this.authService.isAuthenticated();
   }
 }

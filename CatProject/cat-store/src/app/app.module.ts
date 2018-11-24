@@ -20,6 +20,8 @@ import { CatService } from './cat/cat.service'
 import { FetchDataService } from './shared/fetch-data.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
+import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { SigninComponent } from './auth/signin/signin.component';
   providers: [
     ShoppingListService,
     CatService,
-    FetchDataService],
+    FetchDataService,
+    AuthService,
+    AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
