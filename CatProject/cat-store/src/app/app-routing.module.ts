@@ -10,14 +10,6 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 const appRoutes: Routes = [
-    {
-        path: 'cats', component: CatComponent, children: [
-            { path: '', component: CatStartComponent },
-            { path: 'new', component: CatEditComponent, canActivate:[AuthGuardService] },
-            { path: ':id', component: CatDetailComponent },
-            { path: ':id/edit', component: CatEditComponent, canActivate:[AuthGuardService] }
-        ]
-    },
     { path: 'shopping-list', component: ShoppingListComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
