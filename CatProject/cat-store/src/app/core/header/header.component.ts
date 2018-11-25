@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { FetchDataService } from '../shared/fetch-data.service';
-import { AuthService } from '../auth/auth.service';
+import { FetchDataService } from '../../shared/fetch-data.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',

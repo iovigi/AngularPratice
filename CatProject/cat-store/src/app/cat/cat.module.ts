@@ -9,6 +9,7 @@ import { CatListComponent } from './cat-list/cat-list.component';
 import { CatDetailComponent } from './cat-detail/cat-detail.component';
 import { CatItemComponent } from './cat-list/cat-item/cat-item.component';
 import { CatRoutingModule } from './cat-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations:[
@@ -23,7 +24,8 @@ import { CatRoutingModule } from './cat-routing.module';
     imports:[
         CommonModule,
         ReactiveFormsModule,
-        CatRoutingModule
+        CatRoutingModule,
+        SharedModule
     ]
 })
 export class CatModule {

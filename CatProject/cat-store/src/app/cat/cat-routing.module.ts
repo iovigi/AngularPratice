@@ -8,7 +8,7 @@ import { AuthGuardService } from "../auth/auth-guard.service";
 
 const catRoutes: Routes = [
     {
-        path: 'cats', component: CatComponent, children: [
+        path: '', component: CatComponent, children: [
             { path: '', component: CatStartComponent },
             { path: 'new', component: CatEditComponent, canActivate: [AuthGuardService] },
             { path: ':id', component: CatDetailComponent },
@@ -21,7 +21,10 @@ const catRoutes: Routes = [
     imports: [
         RouterModule.forChild(catRoutes)
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers:[
+        AuthGuardService
+    ]
 })
 export class CatRoutingModule {
 
