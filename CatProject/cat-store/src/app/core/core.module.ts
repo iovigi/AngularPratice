@@ -7,27 +7,40 @@ import { CatService } from '../cat/cat.service'
 import { FetchDataService } from '../shared/fetch-data.service';
 import { AuthService } from '../auth/auth.service';
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "../shared/auth.interceptor";
+import { LoggingInterceptor } from "../shared/logging.interceptor";
 
 
 @NgModule({
-    declarations:[
+    declarations: [
         HeaderComponent,
         HomeComponent
     ],
-    imports:[
+    imports: [
         SharedModule,
         AppRoutingModule
     ],
-    exports:[
+    exports: [
         AppRoutingModule,
         HeaderComponent
     ],
-    providers:[
+    providers: [
         ShoppingListService,
         CatService,
         FetchDataService,
-        AuthService]
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi:true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoggingInterceptor,
+            multi:true
+        }]
 })
-export class CoreModule{
+export class CoreModule {
 
 }
