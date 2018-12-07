@@ -6,7 +6,7 @@ import { FetchDataService } from '../../shared/fetch-data.service';
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as AuthActions from '../../auth/store/auth.actions';
-
+import * as CatActions from '../../cat/store/cat.actions';
 
 @Component({
   selector: 'app-header',
@@ -28,10 +28,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onSave() {
-    this.fetchDataService.SaveData();
+    this.store.dispatch(new CatActions.StoreCats());
   }
 
   onFetch() {
-    this.fetchDataService.FetchData();
+    this.store.dispatch(new CatActions.FetchCats());
   }
 }

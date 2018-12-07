@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-xs-12">
-    <img [src]="selectedCat.imagePath" alt="{{selectedCat.name}}" class="img-responsive" />
+    <img [src]="(catState| async).cats[id].imagePath" alt="{{(catState| async).cats[id].name}}" class="img-responsive" />
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <h1>{{selectedCat.name}}</h1>
+    <h1>{{(catState| async).cats[id].name}}</h1>
   </div>
 </div>
 <div class="row">
@@ -30,13 +30,13 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    {{selectedCat.description}}
+    {{(catState| async).cats[id].description}}
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <ul class="list-group">
-      <li class="list-group-item" *ngFor="let behavior of selectedCat.behaviors">
+      <li class="list-group-item" *ngFor="let behavior of (catState| async).cats[id].behaviors">
         {{behavior.name}} - {{behavior.amount}}
       </li>
     </ul>

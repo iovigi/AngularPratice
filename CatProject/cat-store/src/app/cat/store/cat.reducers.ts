@@ -1,9 +1,11 @@
 import { Cat } from "../cat.model";
 import { Behavior } from '../../shared/behavior.model';
 
-import * as CatActions from './cat.actions';
 
-export interface FeatureState {
+import * as CatActions from './cat.actions';
+import * as fromApp from '../../store/app.reducers';
+
+export interface FeatureState extends fromApp.AppState {
     cats: State
 }
 

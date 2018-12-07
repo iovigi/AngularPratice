@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from "@angular/router"
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { CatService } from '../cat.service';
 import { Cat } from '../cat.model';
+import { Store } from '@ngrx/store';
+
+import * as fromCat from '../store/cat.reducers';
+import * as CatActions from '../store/cat.actions';
 
 @Component({
   selector: 'app-cat-edit',
@@ -14,7 +18,7 @@ export class CatEditComponent implements OnInit {
   editMode = false;
   catForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private catService: CatService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private store: Store<fromCat.FeatureState>, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -31,18 +35,23 @@ export class CatEditComponent implements OnInit {
     let behaviors = new FormArray([]);
 
     if (this.editMode) {
-      let cat = this.catService.getCat(this.id);
-      catName = cat.name;
-      catImagePath = cat.imagePath;
-      catDescription = cat.description;
-      if (cat['behaviors']) {
-        for (let behavior of cat.behaviors) {
-          behaviors.push(new FormGroup({
-            'name': new FormControl(behavior.name, Validators.required),
-            'amount': new FormControl(behavior.amount, [Validators.required, Validators.pattern("^[1-9]+[0-9]*$")])
-          }));
-        }
-      }
+
+      this.store.select('cats')
+        .pipe(take((1)))
+        .subscribe((state: fromCat.State) => {
+          let cat = state.cats[this.id];
+          catName = cat.name;
+          catImagePath = cat.imagePath;
+          catDescription = cat.description;
+          if (cat['behaviors']) {
+            for (let behavior of cat.behaviors) {
+              behaviors.push(new FormGroup({
+                'name': new FormControl(behavior.name, Validators.required),
+                'amount': new FormControl(behavior.amount, [Validators.required, Validators.pattern("^[1-9]+[0-9]*$")])
+              }));
+            }
+          }
+        });
     }
 
     this.catForm = new FormGroup(
@@ -57,9 +66,9 @@ export class CatEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      this.catService.updateCat(this.id, this.catForm.value);
+      this.store.dispatch(new CatActions.UpdateCat({ index: this.id, cat: this.catForm.value }));
     } else {
-      this.catService.addCat(this.catForm.value);
+      this.store.dispatch(new CatActions.AddCat(this.catForm.value));
     }
 
     this.catForm.reset();
@@ -77,7 +86,7 @@ export class CatEditComponent implements OnInit {
     }));
   }
 
-  deleteBehavior(i){
+  deleteBehavior(i) {
     (<FormArray>this.catForm.get('behaviors')).removeAt(i);
   }
 
