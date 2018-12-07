@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { CatService } from "../cat/cat.service";
-import { ShoppingListService } from "../shopping-list/shopping-list.service";
-import { AuthService } from "../auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { Cat } from "src/app/cat/cat.model";
 import { Behavior } from "src/app/shared/behavior.model";
@@ -9,15 +7,11 @@ import { HttpEvent, HttpHeaders, HttpParams, HttpRequest } from "@angular/common
 
 @Injectable()
 export class FetchDataService {
-    constructor(private catService: CatService, private shoppingListService: ShoppingListService, private httpClient: HttpClient, private authService: AuthService) { }
+    constructor(private catService: CatService, private httpClient: HttpClient) { }
 
     SaveData() {
         const cats = this.catService.getCats();
-        const behaviors = this.shoppingListService.getBehaviors();
-        const data = { cats: cats, behaviors: behaviors };
-
-        var token = this.authService.getToken();
-
+        const data = { cats: cats };
         /*this.httpClient.put("https://api-project-992217266006.firebaseio.com/catData.json", data, {
             observe: 'body',
             headers: new HttpHeaders().set("Kiro", "1234"),
@@ -42,8 +36,6 @@ export class FetchDataService {
     }
 
     FetchData() {
-        var token = this.authService.getToken();
-
         this.httpClient.get<{ cats: Cat[], behaviors: Behavior[] }>("https://api-project-992217266006.firebaseio.com/catData.json")
             .subscribe(
             (data) => {
@@ -57,9 +49,6 @@ export class FetchDataService {
                     }
                 }
 
-                if (data.behaviors) {
-                    this.shoppingListService.init(data.behaviors);
-                }
                 this.catService.init(data.cats);
             },
             (error) => {

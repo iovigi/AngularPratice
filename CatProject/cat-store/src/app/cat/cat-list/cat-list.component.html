@@ -6,6 +6,6 @@
 <hr/>
 <div class="row">
   <div class="col-xs-12">
-    <app-cat-item *ngFor="let cat of cats; index as i" [cat]="cat" [index]="i"></app-cat-item>
+    <app-cat-item *ngFor="let cat of (catState | async).cats; index as i" [cat]="cat" [index]="i"></app-cat-item>
   </div>
 </div>

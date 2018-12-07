@@ -3,6 +3,11 @@ import { Cat } from "../cat.model";
 import { CatService } from "../cat.service";
 import { ActivatedRoute, Params } from "@angular/router"
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Behavior } from '../../shared/behavior.model';
+import *  as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
+import * as fromShoppingList from '../../shopping-list/store/shopping-list.reducers';
+import * as fromApp from '../../store/app.reducers';
 
 @Component({
   selector: 'app-cat-detail',
@@ -13,7 +18,7 @@ export class CatDetailComponent implements OnInit {
   selectedCat: Cat;
   id:number;
 
-  constructor(private catService: CatService, private route: ActivatedRoute, private router:Router) { }
+  constructor(private catService: CatService,private store:Store<fromApp.AppState>, private route: ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
     this.id = +this.route.snapshot.params['id'];
@@ -27,7 +32,7 @@ export class CatDetailComponent implements OnInit {
   }
 
   toShoppingList() {
-    this.catService.addBehaviorsToShoppingList(this.selectedCat.behaviors);
+    this.store.dispatch(new ShoppingListActions.AddBehaviors(this.selectedCat.behaviors));
   }
 
   deleteCat(){

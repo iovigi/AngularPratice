@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Cat } from './cat.model';
 import { Behavior } from '../shared/behavior.model';
 import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import *  as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
 
 @Injectable()
 export class CatService {
@@ -11,7 +11,7 @@ export class CatService {
 
     private cats: Cat[] = [];
 
-    constructor(private shoppingListService: ShoppingListService) { }
+    constructor(private store:Store<{shoppingList:{behaviors:Behavior[]}}>) { }
 
     init(cats: Cat[]) {
         this.cats = cats;
@@ -27,11 +27,7 @@ export class CatService {
     }
 
     addBehaviorsToShoppingList(behaviors: Behavior[]) {
-        for (let i: number = 0; i < behaviors.length; i++) {
-            let behavior = behaviors[i];
-
-            this.shoppingListService.add(behavior);
-        }
+        this.store.dispatch(new ShoppingListActions.AddBehaviors(behaviors));
     }
 
     addCat(cat: Cat) {

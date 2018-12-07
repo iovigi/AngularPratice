@@ -1,31 +1,24 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Cat } from '../cat.model';
-import { CatService } from '../cat.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import * as fromCat from '../store/cat.reducers';
 
 @Component({
   selector: 'app-cat-list',
   templateUrl: './cat-list.component.html',
   styleUrls: ['./cat-list.component.css']
 })
-export class CatListComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
+export class CatListComponent implements OnInit {
+  private catState:Observable<fromCat.State>;
 
-  cats: Cat[] = [];
-
-  constructor(private catService: CatService, private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromCat.FeatureState>) {
   }
 
   ngOnInit() {
-    this.cats = this.catService.getCats();
-    this.subscription = this.catService.catsChanged.subscribe((cats:Cat[])=>{
-      this.cats = cats;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.catState = this.store.select('cats');
   }
 
   onNew() {

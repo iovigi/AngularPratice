@@ -3,7 +3,7 @@
     <app-shopping-list-edit></app-shopping-list-edit>
     <hr/>
     <ul class="list-group">
-      <a class="list-group-item" style="cursor:pointer;" (click)="onEditItem(i)" *ngFor="let behavior of behaviors; let i=index">
+      <a class="list-group-item" style="cursor:pointer;" (click)="onEditItem(i)" *ngFor="let behavior of (shoppingListState | async).behaviors; let i=index">
         {{behavior.name}} ({{ behavior.amount}}) 
       </a>
     </ul>

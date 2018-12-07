@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Behavior } from "../../shared/behavior.model"
-import { ShoppingListService } from '../shopping-list.service';
+import { Behavior } from "../../shared/behavior.model";
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import *  as ShoppingListActions from '../store/shopping-list.actions';
+import * as fromShoppingList from '../store/shopping-list.reducers';
+import * as fromApp from '../../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-list-edit',
@@ -12,24 +15,29 @@ import { Subscription } from 'rxjs';
 export class ShoppingListEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   editMode = false;
-  editedItemIndex;
   editedItem;
 
   @ViewChild("f")
   shoppingListForm: NgForm;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.subscription = this.shoppingListService.startedEditting.subscribe(indx => {
-      this.editedItemIndex = indx;
-      this.editMode = true;
-      this.editedItem = this.shoppingListService.getBehavior(indx);
-      this.shoppingListForm.setValue({
-        name: this.editedItem.name,
-        amount: this.editedItem.amount
+    this.subscription = this.store.select('shoppingList')
+      .subscribe(
+      data => {
+        if (data.editedBehaviorIndex > -1) {
+          this.editedItem = data.editedBehavior;
+          this.editMode = true;
+          this.shoppingListForm.setValue({
+            name: this.editedItem.name,
+            amount: this.editedItem.amount
+          });
+        }
+        else {
+          this.editMode = false;
+        }
       });
-    })
   }
 
   onSubmitBehavior(shoppingListForm: NgForm) {
@@ -37,12 +45,12 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
       this.editedItem.name = shoppingListForm.value.name;
       this.editedItem.amount = shoppingListForm.value.amount;
 
-      this.shoppingListService.update(this.editedItemIndex, this.editedItem);
+      this.store.dispatch(new ShoppingListActions.UpdateBehavior(this.editedItem));
 
       this.editMode = false;
     }
     else {
-      this.shoppingListService.add(new Behavior(shoppingListForm.value.name, shoppingListForm.value.amount));
+      this.store.dispatch(new ShoppingListActions.AddBehavior(new Behavior(shoppingListForm.value.name, shoppingListForm.value.amount)));
     }
 
     shoppingListForm.form.reset();
@@ -50,7 +58,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
 
   onDelete(shoppingListForm: NgForm) {
     if (this.editMode) {
-      this.shoppingListService.delete(this.editedItemIndex);
+      this.store.dispatch(new ShoppingListActions.DeleteBehavior());
     }
 
     this.editMode = false;
@@ -63,6 +71,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(new ShoppingListActions.StopEdit());
     this.subscription.unsubscribe();
   }
 }

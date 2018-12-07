@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import { FetchDataService } from '../../shared/fetch-data.service';
-import { AuthService } from '../../auth/auth.service';
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import * as AuthActions from '../../auth/store/auth.actions';
+
 
 @Component({
   selector: 'app-header',
@@ -8,13 +14,17 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private fetchDataService: FetchDataService, private authService: AuthService) { }
+   authState:Observable<fromAuth.State>;
+
+  constructor(private fetchDataService: FetchDataService,
+    private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.authState = this.store.select('auth');
   }
 
-  onLogout(){
-    this.authService.logout();
+  onLogout() {
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   onSave() {
@@ -23,9 +33,5 @@ export class HeaderComponent implements OnInit {
 
   onFetch() {
     this.fetchDataService.FetchData();
-  }
-
-  isAuth() {
-    return this.authService.isAuthenticated();
   }
 }
