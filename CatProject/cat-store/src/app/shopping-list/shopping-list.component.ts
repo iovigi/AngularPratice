@@ -15,9 +15,9 @@ import * as fromApp from '../store/app.reducers';
   providers: []
 })
 export class ShoppingListComponent implements OnInit {
-  private shoppingListState: Observable<{behaviors:Behavior[]}>;
+  public shoppingListState: Observable<{behaviors:Behavior[]}>;
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(public store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
    this.shoppingListState = this.store.select('shoppingList');

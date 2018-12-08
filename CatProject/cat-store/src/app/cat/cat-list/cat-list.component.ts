@@ -12,9 +12,9 @@ import * as fromCat from '../store/cat.reducers';
   styleUrls: ['./cat-list.component.css']
 })
 export class CatListComponent implements OnInit {
-  private catState:Observable<fromCat.State>;
+  public catState:Observable<fromCat.State>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromCat.FeatureState>) {
+  constructor(private router: Router, private route: ActivatedRoute, public store: Store<fromCat.FeatureState>) {
   }
 
   ngOnInit() {
